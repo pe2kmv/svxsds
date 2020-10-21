@@ -21,9 +21,10 @@ if ser.isOpen:
 	ser.close()
 
 def ProcessSDS (rawsds):
-	rawsds = rawsds.strip("\r\n")
-	print(rawsds)
-	prep_echo = 'echo "' + status[rawsds] + '" > /tmp/pty_ctl'
+	rawsds = rawsds.split("\\r\\n")
+	print(rawsds[2])
+	prep_echo = 'echo "' + status[rawsds[2]] + '" > /tmp/pty_ctl'
+	print(prep_echo)
 	subprocess.call(prep_echo, shell=True)
 	return()
 
@@ -34,17 +35,18 @@ except:
 	print("Error opening serial port")
 	exit()
 
-abc = 0
 if ser.isOpen:
 
 	try:
 		ser.flushInput()
 		ser.flushOutput()
 		while True:
-			response = ser.readline().decode('utf-8')
-			if len(response) == 6:
+			response = ser.readall()
+			if len(response) >0:
+				response = str(response)
 				ProcessSDS(response)
 
 	except:
+		ser.close()
 		print("script error")
 		exit(0)
