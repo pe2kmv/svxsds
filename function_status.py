@@ -1,5 +1,5 @@
 from statuslist import status_table as status
-from lip_function import ProcessLIP
+from newlip import ProcessLIP
 from aprs_function import SendAPRS
 from dmr_function import GetCallSign
 import subprocess
@@ -35,7 +35,7 @@ def ValidatePosition(rawsds):
 		logger.debug('TempLong = '+ tmpLong)
 		tmpCall = GetCallSign(rawsds)
 		logger.debug('TempCall = ' + tmpCall) 
-		if tmpCall != None and tmpLat != "0" and tmpLong != "0":
+		if tmpCall != None and tmpLat != "0.0" and tmpLong != "0.0":
 			logger.debug('Switch to sendaprs')
 			SendAPRS(tmpCall,tmpLat,tmpLong)
 	except:
