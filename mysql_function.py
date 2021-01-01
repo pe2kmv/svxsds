@@ -14,14 +14,6 @@ tetraprs_host = config.get('mysql','db_host')
 tetraprs_db = config.get('mysql','db_database')
 tetraprs_table = config.get('mysql','db_table')
 
-# settings
-#tetraprs_user = "tetraprs"
-#tetraprs_pw = "tetraprs_pe2kmv"
-#tetraprs_host = "192.168.1.32"
-#tetraprs_db = "tetraprs"
-#tetraprs_table = "tetraprs_raw"
-
-
 def add_to_db(TempTimeStamp,TempSDS):
 	try:
 		db = MySQLdb.connect(host=tetraprs_host,user=tetraprs_user,passwd=tetraprs_pw,db=tetraprs_db)
