@@ -136,7 +136,7 @@ def GetVelocityType(liptext):
 
 def GetHVelocity(liptext):
 	if GetPDUType(liptext) == 0:
-		startbit = 57
+		startbit = 56
 	if GetPDUType(liptext) == 1:
 		startbit = 15 #PDU type 2; PDU Type ext 4; Time type 2; Location shape 4; Velocity type 3
 		startbit = startbit + BitLengthTimeType(ExtractTimeType(liptext)) # add variable bits for time type
@@ -280,8 +280,10 @@ def DecodeVelocityType(veltype):
 def DecodeHVelocity(hvel):
 	if hvel <29:
 		return(hvel)
-	if hvel > 28:
+	if hvel > 28 and hvel < 127:
 		return(28 * (1.038 ** (hvel-28)))
+	if hvel == 127:
+		return(None)
 
 def DecodeAltitude(alt):
 	altoffset = -200
