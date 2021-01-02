@@ -2,6 +2,8 @@ import serial
 import time
 import logging
 
+logger = logging.getLogger(__name__)
+
 serialwait = 15 # Serial command timeout in seconds
 atcommands = ['AT&F','AT+CTOM=6','AT+CTSP=1,3,131','AT+CTSP=1,3,130','AT+CTSP=2,0,0','AT+CTSP=1,2,20','AT+CTSP=1,2,24','AT+CTSP=1,2,25','AT+CTSP=1,1,11','AT+CTSP=1,3,137']
 
@@ -20,10 +22,10 @@ ser.dsrdtr = False
 
 def OpenSerialPort():
 	try:
-		print('Opening serial port '+ ser.port)
+		logger.debug('initradio - OpenSerialPort: Opening serial port '+ ser.port)
 		ser.open()
 	except:
-		print('Error opening port ' + ser.port)
+		logger.error('initradio - OpenSerialPort: Error opening port ' + ser.port)
 		exit()
 
 def GetResponse(response):
@@ -37,6 +39,7 @@ def InitRadio():
 	OpenSerialPort()
 
 	for atc in atcommands:
+		cmd = atc
 		atc = atc + '\r'
 		atc = atc.encode('utf-8')
 		ser.write(atc)
@@ -44,9 +47,7 @@ def InitRadio():
 			timeout = time.time() + serialwait
 			response = ser.readall()
 			if len(response) > 0 or time.time() > timeout:
-				print(time.time())
-				print(timeout)
-				print(GetResponse(response))
+				logger.debug('initradio - InitRadio: ' + cmd + ' : ' + (str(GetResponse(response))))
 				break
 	ser.close()
 	return()
