@@ -11,6 +11,7 @@ logger = logging.getLogger(__name__)
 # set variables
 config = configparser.ConfigParser()
 config.read('/home/pi/svx_sds/config.cfg')
+tetraprs_useaprs = config.get('overall','use_aprs')
 aprs_user = config.get('aprs','aprsuser')
 aprs_pw = config.get('aprs','aprspw')
 
@@ -21,6 +22,8 @@ AIS = aprslib.IS(aprs_user,passwd=aprs_pw,port=14580)
 timestamp = datetime.utcfromtimestamp(time.time()).strftime("%d%H%M") + 'z'
 
 def SendAPRS(tempCall, tempLat, tempLong):
+	if tetraprs_useaprs != "True":
+		return()
 	# create floats
 	tempLat = float(tempLat)
 	tempLong = float(tempLong)
