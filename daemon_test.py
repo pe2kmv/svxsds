@@ -22,6 +22,10 @@ ser.dsrdtr = False
 logging.basicConfig(filename='/var/log/svxsds.log',level=logging.DEBUG)
 logger = logging.getLogger('__name__')
 
+from initradio import InitRadio
+
+InitRadio()
+
 
 def OpenSerialPort():
 	try:
