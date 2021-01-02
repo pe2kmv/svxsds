@@ -8,7 +8,7 @@ def GetStartBit(liptext,attribute):
 		"Longitude":	startbit + 4,
 		"Latitude":	startbit + 29,
 		"PositionError":	startbit + 53,
-		"HorVelocity":	startbit + 56,
+		"VelocityData":	startbit + 56,
 		"DirOfTravel":	startbit + 63,
 		"TOAD":	startbit + 67,
 		"ReasonSending":	startbit + 68
