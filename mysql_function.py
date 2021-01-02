@@ -3,6 +3,8 @@ import sys
 import logging
 import configparser
 
+from newlip import *
+
 logger = logging.getLogger(__name__)
 
 # get configuration
@@ -19,18 +21,17 @@ def add_to_db(TempTimeStamp,TempSDS):
 	if tetraprs_usemysql != "True":
 		return()
 	try:
+		templat = GetLatitude(TempSDS[2:])
+		templon = GetLongitude(TempSDS[2:])
+		templocerror = GetLocationError(TempSDS[2:])
+		temphvel = GetHVelocity(TempSDS[2:])
 		db = MySQLdb.connect(host=tetraprs_host,user=tetraprs_user,passwd=tetraprs_pw,db=tetraprs_db)
-		print("db opened")
 		cur = db.cursor()
-		print("cursor created")
-		print(TempTimeStamp)
-		print(TempSDS)
-		cur.execute("INSERT INTO tetraprs_raw (TimeStamp,SDS_RAW) VALUES ('" + TempTimeStamp + "','" + str(TempSDS) + "')")
-		print("query executed")
+		logger.debug("MySQL - cursor created")
+		logger.debug("INSERT INTO tetraprs_raw (TimeStamp,SDS_RAW,Latitude,Longitude,LocationError,HVelocity) VALUES ('" + TempTimeStamp + "','" + str(TempSDS) + "','"+ str(templat) + "','" + str(templon) + "','" + str(templocerror) + "','" + str(temphvel) + "')")
+		cur.execute("INSERT INTO tetraprs_raw (TimeStamp,SDS_RAW,Latitude,Longitude,LocationError,HVelocity) VALUES ('" + TempTimeStamp + "','" + str(TempSDS) + "','"+ str(templat) + "','" + str(templon) + "','" + str(templocerror) + "','" + str(temphvel) + "')")
 		db.commit()
-		print("database committed")
 		cur.close()
-		print("cursor closed")
 	except:
 		logger.error("AddToDB - Could not add to database")
 
