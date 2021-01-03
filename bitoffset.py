@@ -5,15 +5,14 @@ def GetStartBit(liptext,attribute):
 		# all start bits refer to short message
 		switcher = {
 		"TimeElapsed":	startbit + 2,
-		"Longitude":	startbit + 4,
-		"Latitude":	startbit + 29,
+		"LocationData":	startbit + 0, # This weird offset is to compensate the 4 LocationType bits in the long position message
 		"PositionError":	startbit + 53,
 		"VelocityData":	startbit + 56,
 		"DirOfTravel":	startbit + 63,
 		"TOAD":	startbit + 67,
 		"ReasonSending":	startbit + 68
 		}
-		return(switcher.get(attribute))
+		return(switcher.get(attribute),0)
 	if pdutype == 1:
 		startbit = startbit + 2 # move 2 bits to startbit of PDU Extension type
 		if attribute == "PDUTypeExtension":
