@@ -17,7 +17,7 @@ tetraprs_host = config.get('mysql','db_host')
 tetraprs_db = config.get('mysql','db_database')
 tetraprs_table = config.get('mysql','db_table')
 
-def add_to_db(TempTimeStamp,TempSDS):
+def add_to_db(TempTimeStamp,TempISSI, TempCallSign,TempSDS):
 	if tetraprs_usemysql != "True":
 		return()
 	try:
@@ -27,7 +27,7 @@ def add_to_db(TempTimeStamp,TempSDS):
 		temphvel = GetHVelocity(TempSDS[2:])
 		db = MySQLdb.connect(host=tetraprs_host,user=tetraprs_user,passwd=tetraprs_pw,db=tetraprs_db)
 		cur = db.cursor()
-		cur.execute("INSERT INTO tetraprs_raw (TimeStamp,SDS_RAW,Latitude,Longitude,LocationError,HVelocity) VALUES ('" + TempTimeStamp + "','" + str(TempSDS) + "','"+ str(templat) + "','" + str(templon) + "','" + str(templocerror) + "','" + str(temphvel) + "')")
+		cur.execute("INSERT INTO tetraprs_raw (TimeStamp,ISSI, CallSign,SDS_RAW,Latitude,Longitude,LocationError,HVelocity) VALUES ('" + TempTimeStamp +"','" + str(TempISSI) + "','" + TempCallSign   + "','" + str(TempSDS) + "','"+ str(templat) + "','" + str(templon) + "','" + str(templocerror) + "','" + str(temphvel) + "')")
 		db.commit()
 		cur.close()
 	except:
