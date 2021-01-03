@@ -1,5 +1,8 @@
 import MySQLdb
 import configparser
+import logging
+
+logger = logging.getLogger(__name__)
 
 # get configuration
 config = configparser.ConfigParser()
@@ -31,6 +34,7 @@ def InitDB():
 	if result == 0:
 		createstring = "CREATE TABLE IF NOT EXISTS " + tetraprs_table + " (TimeStamp datetime NOT NULL,SDS_RAW VARCHAR(254) NOT NULL, Longitude FLOAT, Latitude FLOAT, LocationError VARCHAR(50), HVelocity FLOAT)"
 		dbcursor.execute(createstring)
+		logger.debug("Created MySQL table for LIP data")
 		dbcursor.close()
 		mydb.close()
 		return()
