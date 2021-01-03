@@ -5,6 +5,7 @@ import time
 import logging
 
 from function_status import ScreenSDS
+from initdb import InitDB
 
 # settings
 ser = serial.Serial()
@@ -23,8 +24,8 @@ logging.basicConfig(filename='/var/log/svxsds.log',level=logging.DEBUG)
 logger = logging.getLogger('__name__')
 
 from initradio import InitRadio
-
-InitRadio()
+#temp switch off InitRadio to speed up restart during testing phase
+#InitRadio()
 
 
 def OpenSerialPort():
@@ -43,6 +44,7 @@ def main_loop():
 
 if __name__ == '__main__':
 	print('Opening serial port')
+	InitDB()
 	OpenSerialPort()
 	try:
 		print('Running main loop')
