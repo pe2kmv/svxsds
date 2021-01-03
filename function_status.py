@@ -25,6 +25,7 @@ def GetTypeSDS(rawsds):
 def ValidatePosition(rawsds):
 	rawsds = str(rawsds)
 	try:
+		TimeStamp = datetime.today().strftime('%Y-%m-%d %H:%M:%S')
 		MessageBody = rawsds.split('\\r\\n')[2]
 		logger.debug('ValidatePosition - Body: ' + MessageBody[0:2])
 		tmpPosition = ProcessLIP(MessageBody[2:])
@@ -33,9 +34,12 @@ def ValidatePosition(rawsds):
 		logger.debug('TempLat = ' + tmpLat)
 		tmpLong = tmpPosition.split(',')[1]
 		logger.debug('TempLong = '+ tmpLong)
+		tmpIssi = GetIssi(rawsds)
 		tmpCall = GetCallSign(rawsds)
 		logger.debug('TempCall = ' + tmpCall) 
 		if tmpCall != None and tmpLat != "0.0" and tmpLong != "0.0":
+			logger.debug('Save to DB')
+			add_to_db(TimeStamp,tmpIssi,tmpCall,rawsds.split('\\r\\n')[2])
 			logger.debug('Switch to sendaprs')
 			SendAPRS(tmpCall,tmpLat,tmpLong)
 	except:
@@ -45,7 +49,6 @@ def ValidateSDS(rawsds):
 	rawsds = str(rawsds)
 	TimeStamp = datetime.today().strftime('%Y-%m-%d %H:%M:%S')
 	logger.debug('ValidateSDS - Timestamp ' + TimeStamp)
-	add_to_db(TimeStamp,(rawsds.split('\\r\\n')[2]))
 	try:
 		rawsds = rawsds.split('\\r\\n')
 		MessageBody = bytearray.fromhex(rawsds[2])[4:].decode("utf-8")
@@ -106,3 +109,10 @@ def ProcessSDS(rawsds):
 	except:
 		logger.error('Failed to process message: ' + str(rawsds))
 		return()
+
+def GetIssi(rawsds):
+	try:
+		issi = str(rawsds).split(',')[1]
+		return(int(issi))
+	except:
+		return(None)
