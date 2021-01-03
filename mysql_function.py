@@ -27,8 +27,6 @@ def add_to_db(TempTimeStamp,TempSDS):
 		temphvel = GetHVelocity(TempSDS[2:])
 		db = MySQLdb.connect(host=tetraprs_host,user=tetraprs_user,passwd=tetraprs_pw,db=tetraprs_db)
 		cur = db.cursor()
-		logger.debug("MySQL - cursor created")
-		logger.debug("INSERT INTO tetraprs_raw (TimeStamp,SDS_RAW,Latitude,Longitude,LocationError,HVelocity) VALUES ('" + TempTimeStamp + "','" + str(TempSDS) + "','"+ str(templat) + "','" + str(templon) + "','" + str(templocerror) + "','" + str(temphvel) + "')")
 		cur.execute("INSERT INTO tetraprs_raw (TimeStamp,SDS_RAW,Latitude,Longitude,LocationError,HVelocity) VALUES ('" + TempTimeStamp + "','" + str(TempSDS) + "','"+ str(templat) + "','" + str(templon) + "','" + str(templocerror) + "','" + str(temphvel) + "')")
 		db.commit()
 		cur.close()
