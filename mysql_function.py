@@ -33,3 +33,24 @@ def add_to_db(TempTimeStamp,TempISSI, TempCallSign,TempSDS):
 	except:
 		logger.error("AddToDB - Could not add to database")
 
+
+def InitDB():
+	# connector
+	mydb = MySQLdb.connect(host=tetraprs_host,user=tetraprs_user,passwd=tetraprs_pw,db=tetraprs_db)
+
+	# cursor
+	dbcursor = mydb.cursor()
+	checkstring = 'SHOW TABLES LIKE "' + tetraprs_table + '"'
+	result = dbcursor.execute(checkstring)
+	if result == 1:
+		dbcursor.close()
+		mydb.close()
+		return()
+	if result == 0:
+		createstring = "CREATE TABLE IF NOT EXISTS " + tetraprs_table + " (TimeStamp datetime NOT NULL,ISSI INT NOT NULL, CallSign VARCHAR(15),SDS_R$
+		dbcursor.execute(createstring)
+		logger.debug("Created MySQL table for LIP data")
+		dbcursor.close()
+		mydb.close()
+		return()
+
