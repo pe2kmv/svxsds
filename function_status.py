@@ -34,7 +34,12 @@ def ValidatePosition(rawsds):
 		logger.debug('TempLat = ' + tmpLat)
 		tmpLong = tmpPosition.split(',')[1]
 		logger.debug('TempLong = '+ tmpLong)
-		tmpPayload = str(GetDirection(MessageBody[2:])).zfill(3) + '/' + str(GetHVelocity(MessageBody[2:])).zfill(3)
+		logger.debug('Course: '+ str(GetDirection(MessageBody[2:])))
+		logger.debug(GetHVelocity(MessageBody[2:]))
+		if str(GetDirection(MessageBody[2:])) == "None" or str(GetHVelocity(MessageBody[2:])) == "None":
+			tmpPayload = '   /   '
+		else:
+			tmpPayload = str(GetDirection(MessageBody[2:])).zfill(3)  + '/' + str(GetHVelocity(MessageBody[2:])).zfill(3)
 		logger.debug('Direction = ' + str(tmpPayload))
 		tmpIssi = GetIssi(rawsds)
 		tmpCall = GetCallSign(rawsds)
