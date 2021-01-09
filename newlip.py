@@ -43,7 +43,7 @@ def ExtractPositionError(liptext):
 def GetDirection(liptext):
 	if GetPDUType(liptext) == 0:
 		dir = extractKBits(liptext,63,4)
-		dir = dir * 22.5 # direction in steps of 22.5 degrees
+		dir = round(dir * 22.5) # direction in steps of 22.5 degrees
 		return(dir)
 	if GetPDUType(liptext) == 1:
 		diroffset = GetDirectionOffset(ExtractVelocityType(liptext))
