@@ -21,7 +21,7 @@ AIS = aprslib.IS(aprs_user,passwd=aprs_pw,port=14580)
 # get timestamp for APRS
 timestamp = datetime.utcfromtimestamp(time.time()).strftime("%d%H%M") + 'z'
 
-def SendAPRS(tempCall, tempLat, tempLong):
+def SendAPRS(tempCall, tempLat, tempLong,tempPayload):
 	if tetraprs_useaprs != "True":
 		return()
 	# create floats
@@ -30,7 +30,7 @@ def SendAPRS(tempCall, tempLat, tempLong):
 	if tempCall != None and tempLat != 0 and tempLong !=0:
 		# get timestamp for APRS
 		timestamp = datetime.utcfromtimestamp(time.time()).strftime("%d%H%M") + 'z'
-		APRSString = tempCall + '>APRS,TCPIP*:@' + timestamp + latitude_to_ddm(tempLat) + '/' + longitude_to_ddm(tempLong) + 'fTetra APRS station'
+		APRSString = tempCall + '>APRS,TCPIP*:@' + timestamp + latitude_to_ddm(tempLat) + '/' + longitude_to_ddm(tempLong) + 'f' + tempPayload
 		logger.debug('aprs string = ' + APRSString)
 		try:
 			AIS.connect()
