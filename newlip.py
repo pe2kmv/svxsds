@@ -1,3 +1,6 @@
+import logging
+logger = logging.getLogger(__name__)
+
 def ProcessLIP(liptext):
 	try:
 		tmpLong = GetLongitude(liptext)
@@ -278,6 +281,7 @@ def DecodeVelocityType(veltype):
 	return(switcher.get(veltype))
 
 def DecodeHVelocity(hvel):
+	logger.debug('Velocity raw data: ' + str(hvel))
 	if hvel <29:
 		return(hvel)
 	if hvel > 28 and hvel < 127:
