@@ -1,15 +1,16 @@
-# dependencies
+# load libraries
 import sys
-import time
 import serial
-import subprocess
-from functions import ProcessStatus, ScreenSDS, ProcessSDS
-from statuslist import status_table as status
+import time
+import logging
+
+from function_status import ScreenSDS
+from mysql_function import InitDB
 
 # settings
 ser = serial.Serial()
-ser.port = "/dev/ttyUSB0"
-ser.baudrate = 9600
+ser.port = '/dev/ttyUSB0'
+ser.baudrade = 9600
 ser.bytesize = serial.EIGHTBITS
 ser.parity = serial.PARITY_NONE
 ser.stopbits = serial.STOPBITS_ONE
@@ -17,53 +18,37 @@ ser.timeout = 1
 ser.xonoff = False
 ser.rtscts = False
 ser.dsrdtr = False
-ser.writeTimeout = 2
 
-pidi = "/tmp/svxsds.pid"
+# setup logging
+logging.basicConfig(filename='/var/log/svxsds.log',level=logging.DEBUG)
+logger = logging.getLogger('__name__')
 
-if ser.isOpen:
-	ser.close()
+from initradio import InitRadio
+#temp switch off InitRadio to speed up restart during testing phase
+#InitRadio()
 
-# open serial port
+
 def OpenSerialPort():
 	try:
+		logging.debug('Opening serial port '+ ser.port)
 		ser.open()
 	except:
-		print("Error opening serial port")
+		logging.error('Error opening port ' + ser.port)
 		exit()
 
-def main():
-	if ser.isOpen:
-
-		try:
-			ser.flushInput()
-			ser.flushOutput()
-			while True:
-				response = ser.readall()
-				ser.flushInput()
-				ser.flushOutput()
-				if len(response) >0:
-					response = str(response)
-					MessageType = ScreenSDS(response)
-					if MessageType == "13":
-						svxmessage = ProcessStatus(response)
-						print(MessageType + " - " + svxmessage)
-						subprocess.call(svxmessage, shell=True)
-					if MessageType == "12":
-						svxmessage = ProcessSDS(response)
-						print(MessageType + " - " + svxmessage)
-						subprocess.call(svxmessage, shell=True)
-
-		except:
-			ser.close()
-			print("script error")
-			exit(0)
-
+def main_loop():
+	while 1:
+		response = ser.readall()
+		if len(response) > 0:
+			logging.debug(str(ScreenSDS(response)))
 
 if __name__ == '__main__':
+	print('Opening serial port')
+	InitDB()
+	OpenSerialPort()
 	try:
-		OpenSerialPort()
-		main()
+		print('Running main loop')
+		main_loop()
 	except KeyboardInterrupt:
-		print >> sys.stderr, '\nExiting by user request\n'
+		print ('\nExiting by user request\n')
 		sys.exit(0)

@@ -1,5 +1,5 @@
 from statuslist import status_table as status
-from newlip import ProcessLIP
+from newlip import *
 from aprs_function import SendAPRS
 from dmr_function import GetCallSign
 import subprocess
@@ -34,14 +34,17 @@ def ValidatePosition(rawsds):
 		logger.debug('TempLat = ' + tmpLat)
 		tmpLong = tmpPosition.split(',')[1]
 		logger.debug('TempLong = '+ tmpLong)
+		tmpPayload = str(GetDirection(MessageBody[2:])).zfill(3) + '/' + str(GetHVelocity(MessageBody[2:])).zfill(3)
+		logger.debug('Direction = ' + str(tmpPayload))
 		tmpIssi = GetIssi(rawsds)
 		tmpCall = GetCallSign(rawsds)
+		tmpPayload = tmpPayload +"TetrAPRS PE2KMV /P"
 		logger.debug('TempCall = ' + tmpCall) 
 		if tmpCall != None and tmpLat != "0.0" and tmpLong != "0.0":
 			logger.debug('Save to DB')
 			add_to_db(TimeStamp,tmpIssi,tmpCall,rawsds.split('\\r\\n')[2])
 			logger.debug('Switch to sendaprs')
-			SendAPRS(tmpCall,tmpLat,tmpLong)
+			SendAPRS(tmpCall,tmpLat,tmpLong,tmpPayload)
 	except:
 		return()
 
