@@ -47,7 +47,7 @@ def InitDB():
 		mydb.close()
 		return()
 	if result == 0:
-		createstring = "CREATE TABLE IF NOT EXISTS " + tetraprs_table + " (TimeStamp datetime NOT NULL,ISSI INT NOT NULL, CallSign VARCHAR(15),SDS_RAW VARCHAR(254) NOT NULL, Longitude FLOAT, Latitude FLOAT, LocationError VARCHAR(50), HVelocity FLOAT)"
+		createstring = "CREATE TABLE IF NOT EXISTS " + tetraprs_table + " (TimeStamp datetime NOT NULL,SDS_RAW VARCHAR(254) NOT NULL, ISSI INT NOT NULL, CallSign VARCHAR(15),Longitude FLOAT, Latitude FLOAT, LocationError VARCHAR(50), HVelocity FLOAT,Direction INT)"
 		dbcursor.execute(createstring)
 		logger.debug("Created MySQL table for LIP data")
 		dbcursor.close()
