@@ -22,6 +22,7 @@ def GetCallSign(dmrID):
 		return(response['results'][0]['callsign'])
 	except:
 		logger.error('GetCallSign - Invalid input: ' + dmrID)
+		return('No Call')
 
 def GetDMRID(tmpSDS):
 	tmpSDS = str(tmpSDS)
