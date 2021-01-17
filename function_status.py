@@ -45,7 +45,8 @@ def ValidatePosition(rawsds):
 		tmpCall = GetCallSign(rawsds)
 		tmpPayload = tmpPayload +"TetrAPRS PE2KMV /P"
 		logger.debug('TempCall = ' + tmpCall) 
-		if tmpCall != None and tmpLat != "0.0" and tmpLong != "0.0":
+		add_to_db(TimeStamp,tmpIssi,tmpCall,rawsds.split('\\r\\n')[2])
+		if tmpCall != 'No Call' and tmpLat != "0.0" and tmpLong != "0.0":
 			logger.debug('Save to DB')
 			add_to_db(TimeStamp,tmpIssi,tmpCall,rawsds.split('\\r\\n')[2])
 			logger.debug('Switch to sendaprs')
