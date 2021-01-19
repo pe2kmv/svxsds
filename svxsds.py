@@ -3,14 +3,21 @@ import sys
 import serial
 import time
 import logging
+import configparser
 
 from function_status import ScreenSDS
 from mysql_function import InitDB
 
+# get configuration
+config = configparser.ConfigParser()
+config.read('/etc/svxsds.cfg')
+ser_port = config.get('serial','port')
+ser_speed = int(config.get('serial','speed'))
+
 # settings
 ser = serial.Serial()
-ser.port = '/dev/ttyUSB0'
-ser.baudrade = 9600
+ser.port = ser_port
+ser.baudrade = ser_speed
 ser.bytesize = serial.EIGHTBITS
 ser.parity = serial.PARITY_NONE
 ser.stopbits = serial.STOPBITS_ONE
