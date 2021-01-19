@@ -9,7 +9,8 @@ logger = logging.getLogger(__name__)
 
 # get configuration
 config = configparser.ConfigParser()
-config.read('/home/pi/svx_sds/config.cfg')
+#config.read('/home/pi/svx_sds/config.cfg')
+config.read('/etc/svxsds.cfg')
 tetraprs_usemysql = config.get('overall','use_mysql')
 tetraprs_user = config.get('mysql','db_user')
 tetraprs_pw = config.get('mysql','db_pw')
