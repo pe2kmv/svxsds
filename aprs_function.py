@@ -10,7 +10,8 @@ logger = logging.getLogger(__name__)
 
 # set variables
 config = configparser.ConfigParser()
-config.read('/home/pi/svx_sds/config.cfg')
+#config.read('/home/pi/svx_sds/config.cfg')
+config.read('/etc/svxsds.cfg')
 tetraprs_useaprs = config.get('overall','use_aprs')
 aprs_user = config.get('aprs','aprsuser')
 aprs_pw = config.get('aprs','aprspw')
