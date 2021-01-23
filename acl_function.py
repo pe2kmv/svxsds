@@ -22,14 +22,14 @@ def ACL_InitDB():
 	checkstring = 'SHOW TABLES LIKE "' + db_table + '"'
 	result = dbcursor.execute(checkstring)
 	if result == 1:
-		mydbcursor.close()
+		dbcursor.close()
 		mydb.close()
 		return()
 	if result == 0:
 		createstring = 'CREATE TABLE IF NOT EXISTS ' + db_table + '(acl_ID INT NOT NULL AUTO_INCREMENT,acl_ISSI INT NOT NULL,acl_call VARCHAR(10) NULL,acl_name VARCHAR(20) NULL,PRIMARY KEY (acl_ID))'
 		dbcursor.execute(createstring)
 		logger.info('Created new table')
-		mydbcursor.close()
+		dbcursor.close()
 		mydb.close()
 		return()
 
