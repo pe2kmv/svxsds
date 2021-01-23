@@ -5,6 +5,7 @@ import time
 import configparser
 from datetime import datetime
 from aprslib.util import latitude_to_ddm, longitude_to_ddm, comment_altitude
+from acl_function import GetAPRSSymbol,GetAPRSText
 
 logger = logging.getLogger(__name__)
 
@@ -21,16 +22,18 @@ AIS = aprslib.IS(aprs_user,passwd=aprs_pw,port=14580)
 # get timestamp for APRS
 timestamp = datetime.utcfromtimestamp(time.time()).strftime("%d%H%M") + 'z'
 
-def SendAPRS(tempCall, tempLat, tempLong,tempPayload):
+def SendAPRS(tempCall, tempLat, tempLong,tempPayLoad):
 	if tetraprs_useaprs != "True":
 		return()
 	# create floats
 	tempLat = float(tempLat)
 	tempLong = float(tempLong)
+	tempSymbol = GetAPRSSymbol(tempCall,'CALL')
+	tempPayLoad = tempPayLoad + GetAPRSText(tempCall,'CALL')
 	if tempCall != None and tempLat != 0 and tempLong !=0:
 		# get timestamp for APRS
 		timestamp = datetime.utcfromtimestamp(time.time()).strftime("%d%H%M") + 'z'
-		APRSString = tempCall + '>APRS,TCPIP*:@' + timestamp + latitude_to_ddm(tempLat) + '/' + longitude_to_ddm(tempLong) + 'f' + tempPayload
+		APRSString = tempCall + '>APRS,TCPIP*:@' + timestamp + latitude_to_ddm(tempLat) + tempSymbol[0] + longitude_to_ddm(tempLong) + tempSymbol[1] + tempPayLoad
 		logger.debug('aprs string = ' + APRSString)
 		try:
 			AIS.connect()
