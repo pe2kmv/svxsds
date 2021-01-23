@@ -7,7 +7,7 @@ import configparser
 
 from function_status import ScreenSDS
 from mysql_function import InitDB
-
+from acl_function import ACL_InitDB
 
 # get configuration
 config = configparser.ConfigParser()
@@ -53,6 +53,7 @@ def main_loop():
 if __name__ == '__main__':
 	print('Opening serial port')
 	InitDB()
+	ACL_InitDB()
 	OpenSerialPort()
 	try:
 		print('Running main loop')
