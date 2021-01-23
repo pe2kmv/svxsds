@@ -19,8 +19,6 @@ tetraprs_db = config.get('mysql','db_database')
 tetraprs_table = config.get('mysql','db_table')
 
 def add_to_db(TempTimeStamp,TempISSI, TempCallSign,TempSDS):
-	if tetraprs_usemysql != "True":
-		return()
 	try:
 		templat = GetLatitude(TempSDS[2:])
 		templon = GetLongitude(TempSDS[2:])
