@@ -16,10 +16,10 @@
 1. Create a new MySQL database
 1. sudo copy the file svxsds.cfg.default to /etc/ and rename it to svxsds.cfg
 1. Open /etc/svxsds.cfg and adjust the settings:
-  * Set the flags to use APRS, MySQL storage and ACL
-  * MySQL access data (server address, port, username password, database name)
-  * Your credentials for aprs.fi
-  * The serial port interface characteristics (interface and speed)
+	* Set the flags to use APRS, MySQL storage and ACL
+	* MySQL access data (server address, port, username password, database name)
+	* Your credentials for aprs.fi
+	* The serial port interface characteristics (interface and speed)
 1. Open the file 'svxsds.service' with an editor of your choice and adjust the last section of the line 'ExecStart=...' to point to the directory where you've copied the files to.
 1. After saving 'svxsds.service' sudo copy the file to the directory /lib/systemd/system
 1. 
