@@ -52,7 +52,6 @@ def ValidatePosition(rawsds):
 		logger.debug('Direction = ' + str(tmpPayload))
 		tmpIssi = GetIssi(rawsds)
 		tmpCall = GetCallSign(rawsds)
-		tmpPayload = tmpPayload +"TetrAPRS PE2KMV /P"
 		logger.debug('TempCall = ' + tmpCall) 
 		add_to_db(TimeStamp,tmpIssi,tmpCall,rawsds.split('\\r\\n')[2])
 		if tmpCall != 'No Call' and tmpLat != "0.0" and tmpLong != "0.0":
