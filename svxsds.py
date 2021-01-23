@@ -8,6 +8,7 @@ import configparser
 from function_status import ScreenSDS
 from mysql_function import InitDB
 
+
 # get configuration
 config = configparser.ConfigParser()
 config.read('/etc/svxsds.cfg')
