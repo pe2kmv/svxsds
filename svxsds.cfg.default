@@ -1,6 +1,7 @@
 [overall]
 use_mysql = True
 use_aprs = True
+use_acl = True
 
 [mysql]
 db_user = #mysql database user name#
@@ -9,6 +10,7 @@ db_host = #IP or address of mysql server#
 db_port = 3306
 db_database = tetraprs
 db_table = tetraprs_raw
+db_acl = tetraprs_acl
 
 [aprs]
 aprsuser = #aprs.fi username#
