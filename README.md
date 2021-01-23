@@ -26,6 +26,8 @@
 1. Start the service (sudo systemctl start svxsds)
 
 ## Config file
-use_mysql (True / False): determines whether or not position data is to be stored in a MySQL table
-use_aprs (True / False): determines wheter or not data is to be send to aprs.fi
-use_acl (True / False): 'True' means the ISSI is checked against the MySQL table to determine whether or not the use is allowed to send commands. 'False' means everybody is allowed to send commands to SVXLink.
+__use_mysql__ (True / False): determines whether or not position data is to be stored in a MySQL table
+
+__use_aprs__ (True / False): determines wheter or not data is to be send to aprs.fi
+
+__use_acl__ (True / False): 'True' means the ISSI is checked against the MySQL table to determine whether or not the use is allowed to send commands. 'False' means everybody is allowed to send commands to SVXLink.
