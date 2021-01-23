@@ -22,4 +22,10 @@
 	* The serial port interface characteristics (interface and speed)
 1. Open the file 'svxsds.service' with an editor of your choice and adjust the last section of the line 'ExecStart=...' to point to the directory where you've copied the files to.
 1. After saving 'svxsds.service' sudo copy the file to the directory /lib/systemd/system
-1. 
+1. Enable the service so it starts on boot (sudo systemctl enable svxsds)
+1. Start the service (sudo systemctl start svxsds)
+
+## Config file
+use_mysql (True / False): determines whether or not position data is to be stored in a MySQL table
+use_aprs (True / False): determines wheter or not data is to be send to aprs.fi
+use_acl (True / False): 'True' means the ISSI is checked against the MySQL table to determine whether or not the use is allowed to send commands. 'False' means everybody is allowed to send commands to SVXLink.
