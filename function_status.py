@@ -2,10 +2,19 @@ from statuslist import status_table as status
 from newlip import *
 from aprs_function import SendAPRS
 from dmr_function import GetCallSign
+from acl_function import IsInACL
 import subprocess
 import logging
 from datetime import datetime
 from mysql_function import add_to_db
+import configparser
+
+# get configuration settings
+config = configparser.ConfigParser()
+config.read('/etc/svxsds.cfg')
+tetraprs_usemysql = config.get('overall','use_mysql').upper()
+tetraprs_useaprs = config.get('overall','use_aprs').upper()
+tetraprs_useacl = config.get('overall','use_acl').upper()
 
 logger = logging.getLogger(__name__)
 
@@ -47,10 +56,12 @@ def ValidatePosition(rawsds):
 		logger.debug('TempCall = ' + tmpCall) 
 		add_to_db(TimeStamp,tmpIssi,tmpCall,rawsds.split('\\r\\n')[2])
 		if tmpCall != 'No Call' and tmpLat != "0.0" and tmpLong != "0.0":
-			logger.debug('Save to DB')
-			add_to_db(TimeStamp,tmpIssi,tmpCall,rawsds.split('\\r\\n')[2])
-			logger.debug('Switch to sendaprs')
-			SendAPRS(tmpCall,tmpLat,tmpLong,tmpPayload)
+			if tetraprs_usemysql == "TRUE":
+				logger.debug('Save to DB')
+				add_to_db(TimeStamp,tmpIssi,tmpCall,rawsds.split('\\r\\n')[2])
+			if tetraprs_useaprs == "TRUE":
+				logger.debug('Switch to sendaprs')
+				SendAPRS(tmpCall,tmpLat,tmpLong,tmpPayload)
 	except:
 		return()
 
@@ -95,6 +106,14 @@ def EchoSVXLink(echostring):
 		return()
 
 def ProcessStatus(rawsds):
+	# check whether user is allowed to send commands
+	if tetraprs_useacl == 'TRUE':
+		tempISSI = str(GetIssi(rawsds))
+		if IsInACL(tempISSI) == False:
+			# user is NOT allowed - bail out
+			logger.info('User not allowed to send command - ISSI = ' + tempISSI) 
+			return()
+	# either user is allowed or all users are allowed - continue routine
 	rawsds = str(rawsds)
 	rawsds = rawsds.split('\\r\\n')
 	try:
