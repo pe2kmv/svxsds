@@ -73,7 +73,7 @@ def ValidateSDS(rawsds):
 		MessageBody = bytearray.fromhex(rawsds[2])[4:].decode("utf-8")
 		logger.debug('ValidateSDS - ' + MessageBody)
 		if MessageBody[-1] != '#':
-			MessageBody = MessageBody + '#'
+			MessageBody += '#'
 		int(MessageBody[0:-1])
 		return(True)
 	except:
@@ -129,7 +129,7 @@ def ProcessSDS(rawsds):
 	try:
 		prep_echo = bytearray.fromhex(rawsds[2])[4:].decode("utf-8")
 		if prep_echo[-1] != '#':
-			prep_echo = prep_echo + '#'
+			prep_echo += '#'
 		prep_echo = 'echo "' + prep_echo + '" > /tmp/pty_ctl'
 		logger.debug('SDS Message echo: '+ prep_echo)
 		EchoSVXLink(prep_echo)
