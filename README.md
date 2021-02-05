@@ -67,4 +67,4 @@ __speed__: Serial speed of the radio as set via CPS
 * Repeater response via SDS
 
 ## Major disclaimer
-These scripts are only meant for hobby / ham radio purposes. It's uses is as always on own risk. In case something isn't working as expected: happy searching and puzzling!
+These scripts are only meant for hobby / ham radio purposes. Use is as always on own risk. In case something isn't working as expected: happy searching and puzzling!
