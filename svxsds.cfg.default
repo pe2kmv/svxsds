@@ -16,6 +16,10 @@ db_acl = tetraprs_acl
 aprsuser = #aprs.fi username#
 aprspw = #aprs.fi passcode#
 
+[svxlink]
+use_digsquelch = True
+pty_digsquelch = /tmp/rx1_sql
+
 [serial]
 port = '/dev/ttyUSB0'
 speed = 9600
