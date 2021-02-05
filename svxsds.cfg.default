@@ -21,5 +21,5 @@ use_digsquelch = True
 pty_digsquelch = /tmp/rx1_sql
 
 [serial]
-port = '/dev/ttyUSB0'
+port = /dev/ttyUSB0
 speed = 9600
