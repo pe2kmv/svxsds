@@ -26,7 +26,8 @@
 1. Enable the service so it starts on boot (sudo systemctl enable svxsds)
 1. Start the service (sudo systemctl start svxsds)
 
-# Important to make sure SVXLink runs BEFORE launching svxsds.service!
+*Important to make sure SVXLink runs BEFORE launching svxsds.service!*
+
 ## Config file
 __use_mysql__ (True / False): determines whether or not position data is to be stored in a MySQL table
 
