@@ -5,7 +5,7 @@ import time
 import logging
 import configparser
 
-from function_status import ScreenSDS
+from function_status import ScreenSDS,FilterSerial,PrepSerialData
 from mysql_function import InitDB
 from acl_function import ACL_InitDB
 
@@ -22,7 +22,7 @@ ser.baudrade = ser_speed
 ser.bytesize = serial.EIGHTBITS
 ser.parity = serial.PARITY_NONE
 ser.stopbits = serial.STOPBITS_ONE
-ser.timeout = 1
+ser.timeout = 0.1
 ser.xonoff = False
 ser.rtscts = False
 ser.dsrdtr = False
@@ -33,7 +33,7 @@ logger = logging.getLogger('__name__')
 
 from initradio import InitRadio
 #temp switch off InitRadio to speed up restart during testing phase
-InitRadio()
+#InitRadio()
 
 
 def OpenSerialPort():
@@ -48,7 +48,8 @@ def main_loop():
 	while 1:
 		response = ser.readall()
 		if len(response) > 0:
-			logging.debug(str(ScreenSDS(response)))
+			response = PrepSerialData(response)
+			logging.debug(str(FilterSerial(response)))
 
 if __name__ == '__main__':
 	print('Opening serial port')
