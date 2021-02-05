@@ -26,7 +26,7 @@
 1. Enable the service so it starts on boot (sudo systemctl enable svxsds)
 1. Start the service (sudo systemctl start svxsds)
 
-*Important to make sure SVXLink runs BEFORE launching svxsds.service!*
+__*Important to make sure SVXLink runs BEFORE launching svxsds.service!*__
 
 ## Config file
 __use_mysql__ (True / False): determines whether or not position data is to be stored in a MySQL table
@@ -41,7 +41,7 @@ __db_pw__: MySQL database password
 
 __db_host__: URI or IP address of the database server
 
-__db_port: Port number to connect to MySQL server (default 3306)
+__db_port__: Port number to connect to MySQL server (default 3306)
 
 __db_database__: Database name for the TetrAPRS data
 
