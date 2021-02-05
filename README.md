@@ -10,6 +10,7 @@
 * Lookup ISSI in DMR MARC database
 * Position, direction and speed storage in MySQL database
 * Position, direction and speed upload to aprs.fi
+* Control SVXLink squelch via pseudo TTY and PEI output
 
 ## Installation
 1. Copy the files to a directory of your choice
@@ -57,3 +58,8 @@ __pty_digsquelch__: Path to the pseudo TTY for squelch as defined (and uncomment
 __port__: Path to the serial device (ttyAMA0 = serial port via RPi GPIO, ttyUSBx = USB level converter)
 
 __speed__: Serial speed of the radio as set via CPS
+
+## Work in progress
+* APRS Status integration
+* APRS change symbol via SDS
+* Repeater response via SDS
