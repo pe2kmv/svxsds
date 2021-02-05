@@ -31,3 +31,29 @@ __use_mysql__ (True / False): determines whether or not position data is to be s
 __use_aprs__ (True / False): determines wheter or not data is to be send to aprs.fi
 
 __use_acl__ (True / False): 'True' means the ISSI is checked against the MySQL table to determine whether or not the use is allowed to send commands. 'False' means everybody is allowed to send commands to SVXLink.
+
+__db_user__: MySQL database user name
+
+__db_pw__: MySQL database password
+
+__db_host__: URI or IP address of the database server
+
+__db_port: Port number to connect to MySQL server (default 3306)
+
+__db_database__: Database name for the TetrAPRS data
+
+__db_table__: Table name for the TetrAPRS raw messages
+
+__db_acl__: Access Control List to register users with APRS symbol etc
+
+__aprsuser__: Username for aprs.fi
+
+__aprspw__: Password for aprs.fi
+
+__use_digsquelch__ (True/False): 'True' means the SVXLink squelch is controlled via pseudo TTY commands
+
+__pty_digsquelch__: Path to the pseudo TTY for squelch as defined (and uncommented) in rx section in svxlink.conf
+
+__port__: Path to the serial device (ttyAMA0 = serial port via RPi GPIO, ttyUSBx = USB level converter)
+
+__speed__: Serial speed of the radio as set via CPS
