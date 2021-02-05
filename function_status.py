@@ -73,11 +73,11 @@ def ValidateSDS(rawsds):
 	TimeStamp = datetime.today().strftime('%Y-%m-%d %H:%M:%S')
 	logger.debug('ValidateSDS - Timestamp ' + TimeStamp)
 	try:
-		MessageBody = bytearray.fromhex(rawsds[1][6:]).decode("utf-8")
+		MessageBody = stripped(bytearray.fromhex(rawsds[1][6:]).decode("utf-8"))
 		logger.debug('ValidateSDS - ' + MessageBody)
 		if MessageBody[-1] != '#':
 			MessageBody += '#'
-		MessageBody[1:3].upper() == '#C'
+		MessageBody[0:2].upper() == '#C'
 		return(True)
 	except:
 		logger.debug('ValidateSDS except found')
