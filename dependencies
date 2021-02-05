@@ -1,4 +1,8 @@
+python 3.7x
 pyserial
 aprslib
 mysqlclient
 configparser
+logging
+datetime
+sys
