@@ -25,9 +25,7 @@ def GetCallSign(dmrID):
 		return('No Call')
 
 def GetDMRID(tmpSDS):
-	tmpSDS = str(tmpSDS)
 	try:
-		tmpSDS = tmpSDS.split('\\r\\n')[1]
 		tmpSDS = tmpSDS.split(',')[1]
 		return(tmpSDS)
 	except:
