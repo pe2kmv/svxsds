@@ -15,6 +15,7 @@ db_acl = tetraprs_acl
 [aprs]
 aprsuser = #aprs.fi username#
 aprspw = #aprs.fi passcode#
+change_settings = True
 
 [svxlink]
 use_digsquelch = True
