@@ -64,8 +64,8 @@ __port__: Path to the serial device (ttyAMA0 = serial port via RPi GPIO, ttyUSBx
 __speed__: Serial speed of the radio as set via CPS
 
 ## Change APRS settings over the air
-1 Start the text message with #A followed by a space to flag an APRS settings command
-1 settext [new APRS beacon text]: this command changes the APRS beacon text to the string between the square brackets. Example: '#A settext Hello out there' changes the beacon text to 'Hello out there'
+* Start the text message with #A followed by a space to flag an APRS settings command
+* settext [new APRS beacon text]: this command changes the APRS beacon text to the string between the square brackets. Example: '#A settext Hello out there' changes the beacon text to 'Hello out there'
 
 ## Work in progress
 * APRS Status integration
