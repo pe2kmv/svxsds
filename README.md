@@ -53,6 +53,8 @@ __aprsuser__: Username for aprs.fi
 
 __aprspw__: Password for aprs.fi
 
+__change_settings__ (True/False): 'True' allows to change APRS settings over the air
+
 __use_digsquelch__ (True/False): 'True' means the SVXLink squelch is controlled via pseudo TTY commands
 
 __pty_digsquelch__: Path to the pseudo TTY for squelch as defined (and uncommented) in rx section in svxlink.conf
@@ -60,6 +62,10 @@ __pty_digsquelch__: Path to the pseudo TTY for squelch as defined (and uncomment
 __port__: Path to the serial device (ttyAMA0 = serial port via RPi GPIO, ttyUSBx = USB level converter)
 
 __speed__: Serial speed of the radio as set via CPS
+
+## Change APRS settings over the air
+1 Start the text message with #A followed by a space to flag an APRS settings command
+1 settext [new APRS beacon text]: this command changes the APRS beacon text to the string between the square brackets. Example: '#A settext Hello out there' changes the beacon text to 'Hello out there'
 
 ## Work in progress
 * APRS Status integration
