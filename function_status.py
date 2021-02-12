@@ -1,6 +1,6 @@
 from statuslist import status_table as status
 from newlip import *
-from aprs_function import SendAPRS
+from aprs_function import SendAPRS, AprsCommand
 from dmr_function import GetCallSign
 from acl_function import IsInACL
 import subprocess
@@ -30,6 +30,7 @@ tetraprs_useaprs = config.get('overall','use_aprs').upper()
 tetraprs_useacl = config.get('overall','use_acl').upper()
 svx_usesquelch = ConvertToBool(config.get('svxlink','use_digsquelch').upper())
 svx_ptysquelch = config.get('svxlink','pty_digsquelch')
+aprs_chngsettings = ConvertToBool(config.get('aprs','change_settings').upper())
 
 logger = logging.getLogger(__name__)
 
@@ -165,7 +166,6 @@ def ProcessStatus(rawsds):
 
 def ProcessSDSCommand(rawsds):
 	try:
-		print(rawsds)
 		tempsds = stripped(bytearray.fromhex(rawsds[1][6:]).decode("utf-8").strip())
 		if tempsds[0:2].upper().strip() == '#C':
 			# this is definitely a command
@@ -175,6 +175,10 @@ def ProcessSDSCommand(rawsds):
 			prep_echo = 'echo "' + prep_echo + '" > /tmp/pty_ctl'
 			logger.debug('SDS Message echo: '+ prep_echo)
 			EchoSVXLink(prep_echo)
+		if tempsds[0:2].upper().strip() == '#A' and aprs_chngsettings == True:
+			# this is an APRS setting command
+			logger.debug('Send APRS settings command')
+			AprsCommand(rawsds[0].split(',')[1],tempsds[2:].strip())
 	except:
 		logger.error('Failed to process message: ' + str(rawsds))
 		return()
