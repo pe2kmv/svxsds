@@ -6,7 +6,8 @@ import configparser
 from datetime import datetime
 from aprslib.util import latitude_to_ddm, longitude_to_ddm, comment_altitude
 from acl_function import GetAPRSSymbol,GetAPRSText
-from mysql_function import MySQL_SetText
+from mysql_function import MySQL_SetText,MySQL_SetSymbol
+from aprssymbol import prim_table, alt_table
 
 logger = logging.getLogger(__name__)
 
@@ -30,6 +31,18 @@ def AprsCommand(tempissi,rawsds):
 		if tempcmd == 'settext':
 			# this sets a new APRS beacon text in the database
 			MySQL_SetText(tempissi,rawsds.split(' ',1)[1])
+		if tempcmd == 'setsymb':
+			# this sets a new APRS symbol
+			tempsymb = rawsds.split(' ',1)[1]
+			if tempsymb[0] == '/':
+				# check whether or not this is a valid symbol
+				if len(prim_table[tempsymb[1]]) > 0:
+					# yes it's valid -> start MySQL query
+					MySQL_SetSymbol(tempissi,tempsymb)
+			if tempsymb[0] == '\\':
+				if len(alt_table[tempsymb[1]]) > 0:
+					# also a valid symbol -> start MySQL query
+					MySQL_SetSymbol(tempissi,tempsymb)
 		else:
 			return()
 	except:
