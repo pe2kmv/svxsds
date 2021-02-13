@@ -66,6 +66,7 @@ __speed__: Serial speed of the radio as set via CPS
 ## Change APRS settings over the air
 * Start the text message with #A followed by a space to flag an APRS settings command
 * settext [new APRS beacon text]: this command changes the APRS beacon text to the string between the square brackets. Example: '#A settext Hello out there' changes the beacon text to 'Hello out there'
+* setsymb [symbol table][symbol]: this command changes the APRS symbol at the map. Example: '#A setsymb /f' changes the symbol to a fire truck.
 
 ## Work in progress
 * APRS Status integration
