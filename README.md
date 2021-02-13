@@ -94,8 +94,8 @@ Hex value | Message text
 8008 | EMERGENCY
 
 ## Work in progress
-* APRS Status integration
-* APRS change symbol via SDS
+* APRS Status integration :white_check_mark:
+* APRS change symbol via SDS :white_check_mark:
 * Repeater response via SDS
 
 ## Major disclaimer
