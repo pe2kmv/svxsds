@@ -68,6 +68,31 @@ __speed__: Serial speed of the radio as set via CPS
 * settext [new APRS beacon text]: this command changes the APRS beacon text to the string between the square brackets. Example: '#A settext Hello out there' changes the beacon text to 'Hello out there'
 * setsymb [symbol table][symbol]: this command changes the APRS symbol at the map. Example: '#A setsymb /f' changes the symbol to a fire truck.
 
+# Status
+Status messages 0x9001 - 0x900C are reserved as shortcuts to send commands to SVXLink. The file 'statuslist.py' translates the hex message to the actual string which is to be send to SVXLink. Example: the radio is programmed with status 0x9001, programmed with text '1#' and assigned to one touch key [1]. Actually pressing the key [1] for longer than one second the radio sends status message 0x9001. The script looks up the message 0x9001 in the reference table in 'statuslist.py'.
+
+Hex value | Message text | Hex value | Message text
+--------- | ------------ | --------- | ------------
+9001 | 1# | 9007 | 7#
+9002 | 2# | 9008 | 8#
+9003 | 3# | 9009 | 9#
+9004 | 4# | 900A | 0#
+9005 | 5# | 900B | *#
+9006 | 6# | 900C | #
+
+Status messages 0x8001 - 0x8006 have been reserved for the MIC-E position comments. Via the menu these status messages can be called and send to the node as a quick way to set the APRS position comment. 
+
+Hex value | Message text
+--------- | ------------
+8001 | Off Duty
+8002 | En Route
+8003 | In Service
+8004 | Returning
+8005 | Committed
+8006 | Special
+8007 | Priority
+8008 | EMERGENCY
+
 ## Work in progress
 * APRS Status integration
 * APRS change symbol via SDS
