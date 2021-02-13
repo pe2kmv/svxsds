@@ -72,3 +72,22 @@ def MySQL_SetText(tempissi,temptext):
 	except:
 		logger.debug('Could not update APRS beacon text')
 		return()
+
+def MySQL_SetSymbol(tempissi,tempsymbol):
+	try:
+		aprstable = tempsymbol[0]
+		aprssymbol = tempsymbol[1]
+		if (IsInACL(tempissi)) == True:
+			db = MySQLdb.connect(host=tetraprs_host,user=tetraprs_user,passwd=tetraprs_pw,db=tetraprs_db)
+			cur = db.cursor()
+			cur.execute('UPDATE ' + tetraprs_acl + ' SET acl_aprs_table = "\\' + aprstable + '",acl_aprs_symbol = "' + aprssymbol + '" WHERE acl_ISSI = ' + tempissi)
+			db.commit()
+			cur.close()
+			db.close()
+			logger.debug('Updated APRS symbol for ISSI ' + tempissi + ' to ' + tempsymbol)
+		else:
+			logger.debug('ISSI not known in ACL')
+		return()
+	except:
+		logger.debug('Could not update APRS beacon text')
+		return()
