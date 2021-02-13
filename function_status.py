@@ -6,7 +6,7 @@ from acl_function import IsInACL
 import subprocess
 import logging
 from datetime import datetime
-from mysql_function import add_to_db
+from mysql_function import add_to_db,MySQL_SetText
 import configparser
 
 
@@ -157,9 +157,14 @@ def ProcessStatus(rawsds):
 			return()
 	# either user is allowed or all users are allowed - continue routine
 	try:
-		prep_echo = 'echo "' + status[rawsds[1]] + '" > /tmp/pty_ctl'
-		logger.debug(prep_echo)
-		EchoSVXLink(prep_echo)
+		if len(status[rawsds[1]]) <=2:
+			# this is an SVXLink command
+			prep_echo = 'echo "' + status[rawsds[1]] + '" > /tmp/pty_ctl'
+			logger.debug(prep_echo)
+			EchoSVXLink(prep_echo)
+		if len(status[rawsds[1]]) > 2:
+			# this is a quicktext
+			MySQL_SetText(tempISSI,status[rawsds[1]])
 	except:
 		logger.error('Failed to process status: ' + str(rawsds[1]))
 		return()
