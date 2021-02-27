@@ -6,3 +6,4 @@ configparser
 logging
 datetime
 sys
+python3-mysqldb
