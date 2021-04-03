@@ -36,6 +36,7 @@ __use_aprs__ (True / False): determines wheter or not data is to be send to aprs
 __use_acl__ (True / False): 'True' means the ISSI is checked against the MySQL table to determine whether or not the use is allowed to send commands. 'False' means everybody is allowed to send commands to SVXLink.
 
 __use_dapnet__ (True / False): 'True' means everybody is allowed to send DAPNET messages via SDS. 'False' disables the SDS to DAPNET gateway.
+
 __db_user__: MySQL database user name
 
 __db_pw__: MySQL database password
