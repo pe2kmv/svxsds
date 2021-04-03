@@ -8,7 +8,7 @@ import logging
 from datetime import datetime
 from mysql_function import add_to_db,MySQL_SetText
 import configparser
-
+from dapnet import SendDapnet
 
 # some handy generic functions
 def ConvertToBool(tempstring):
@@ -78,7 +78,7 @@ def ValidateSDS(rawsds):
 		logger.debug('ValidateSDS - ' + MessageBody)
 		if MessageBody[-1] != '#':
 			MessageBody += '#'
-		MessageBody[0:2].upper() == '#C'
+		MessageBody[0:2].upper() == '#C' or MessageBody[0:2].upper() == '#A' or MessageBody[0:2].upper() == '#D'
 		return(True)
 	except:
 		logger.debug('ValidateSDS except found')
@@ -184,6 +184,8 @@ def ProcessSDSCommand(rawsds):
 			# this is an APRS setting command
 			logger.debug('Send APRS settings command')
 			AprsCommand(rawsds[0].split(',')[1],tempsds[2:].strip())
+		if tempsds[0:2].upper().strip() == '#D':
+			SendDapnet(tempsds[2:])
 	except:
 		logger.error('Failed to process message: ' + str(rawsds))
 		return()
