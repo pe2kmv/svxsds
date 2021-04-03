@@ -17,6 +17,11 @@ aprsuser = #aprs.fi username#
 aprspw = #aprs.fi passcode#
 change_settings = True
 
+[dapnet]
+dapnetuser = #dapnet username#
+dapnetpw = #dapnet password#
+dapneturi = http://www.hampager.de:8080/calls
+
 [svxlink]
 use_digsquelch = True
 pty_digsquelch = /tmp/rx1_sql
