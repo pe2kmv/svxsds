@@ -2,6 +2,7 @@
 use_mysql = True
 use_aprs = True
 use_acl = True
+use_dapnet = True
 
 [mysql]
 db_user = #mysql database user name#
