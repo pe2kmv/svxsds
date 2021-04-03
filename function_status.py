@@ -31,6 +31,7 @@ tetraprs_useacl = config.get('overall','use_acl').upper()
 svx_usesquelch = ConvertToBool(config.get('svxlink','use_digsquelch').upper())
 svx_ptysquelch = config.get('svxlink','pty_digsquelch')
 aprs_chngsettings = ConvertToBool(config.get('aprs','change_settings').upper())
+dapnet_send = ConvertToBool(config.get('overall','use_dapnet').upper())
 
 logger = logging.getLogger(__name__)
 
@@ -184,7 +185,7 @@ def ProcessSDSCommand(rawsds):
 			# this is an APRS setting command
 			logger.debug('Send APRS settings command')
 			AprsCommand(rawsds[0].split(',')[1],tempsds[2:].strip())
-		if tempsds[0:2].upper().strip() == '#D':
+		if tempsds[0:2].upper().strip() == '#D' and dapnet_send == True:
 			SendDapnet(tempsds[2:])
 	except:
 		logger.error('Failed to process message: ' + str(rawsds))
