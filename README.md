@@ -35,6 +35,7 @@ __use_aprs__ (True / False): determines wheter or not data is to be send to aprs
 
 __use_acl__ (True / False): 'True' means the ISSI is checked against the MySQL table to determine whether or not the use is allowed to send commands. 'False' means everybody is allowed to send commands to SVXLink.
 
+__use_dapnet__ (True / False): 'True' means everybody is allowed to send DAPNET messages via SDS. 'False' disables the SDS to DAPNET gateway.
 __db_user__: MySQL database user name
 
 __db_pw__: MySQL database password
@@ -92,6 +93,9 @@ Hex value | Message text
 8006 | Special
 8007 | Priority
 8008 | EMERGENCY
+
+## DAPNET via SDS
+You can send DAPNET messages via SDS. Initiate a DAPNET message by starting the SDS text with '#D' (without quotes). After a space you'll have to enter the callsign of the receiver, again followed by a space. Finally you can enter the message text which can have a maximum of 80 characters.
 
 ## Work in progress
 * APRS Status integration :white_check_mark:
