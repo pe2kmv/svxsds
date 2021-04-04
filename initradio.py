@@ -1,9 +1,7 @@
 import serial
 import time
-import logging
 import configparser
-
-logger = logging.getLogger(__name__)
+from logfunctions import *
 
 serialwait = 15 # Serial command timeout in seconds
 atcommands = ['AT&F','AT+CTOM=6','AT+CTSP=1,3,131','AT+CTSP=1,3,130','AT+CTSP=2,0,0','AT+CTSP=1,2,20','AT+CTSP=1,2,24','AT+CTSP=1,2,25','AT+CTSP=1,1,11','AT+CTSP=1,3,137']
