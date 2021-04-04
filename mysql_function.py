@@ -1,12 +1,10 @@
 import MySQLdb
 import sys
-import logging
 import configparser
 
+from logfunctions import *
 from newlip import *
 from acl_function import IsInACL
-
-logger = logging.getLogger(__name__)
 
 # get configuration
 config = configparser.ConfigParser()
