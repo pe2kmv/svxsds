@@ -2,12 +2,13 @@
 import sys
 import serial
 import time
-import logging
+#import logging
 import configparser
 
 from function_status import ScreenSDS,FilterSerial,PrepSerialData
 from mysql_function import InitDB
 from acl_function import ACL_InitDB
+from logfunctions import *
 
 # get configuration
 config = configparser.ConfigParser()
@@ -27,10 +28,6 @@ ser.xonoff = False
 ser.rtscts = False
 ser.dsrdtr = False
 
-# setup logging
-logging.basicConfig(filename='/var/log/svxsds.log',level=logging.DEBUG)
-logger = logging.getLogger('__name__')
-
 from initradio import InitRadio
 #temp switch off InitRadio to speed up restart during testing phase
 InitRadio()
@@ -38,10 +35,10 @@ InitRadio()
 
 def OpenSerialPort():
 	try:
-		logging.debug('Opening serial port '+ ser.port)
+		logger.debug('Opening serial port '+ ser.port)
 		ser.open()
 	except:
-		logging.error('Error opening port ' + ser.port)
+		logger.error('Error opening port ' + ser.port)
 		exit()
 
 def main_loop():
@@ -49,7 +46,7 @@ def main_loop():
 		response = ser.readall()
 		if len(response) > 0:
 			response = PrepSerialData(response)
-			logging.debug(str(FilterSerial(response)))
+			logger.debug(str(FilterSerial(response)))
 
 if __name__ == '__main__':
 	print('Opening serial port')
