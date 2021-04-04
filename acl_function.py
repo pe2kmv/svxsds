@@ -1,6 +1,6 @@
 import MySQLdb
 import configparser
-import logging
+from logfunctions import *
 
 # get configuration settings
 config = configparser.ConfigParser()
@@ -10,8 +10,6 @@ db_pw = config.get('mysql','db_pw')
 db_host = config.get('mysql','db_host')
 db_database = config.get('mysql','db_database')
 db_table = config.get('mysql','db_acl')
-
-logger = logging.getLogger(__name__)
 
 def ACL_InitDB():
 	# create connector
