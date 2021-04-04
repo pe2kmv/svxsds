@@ -4,11 +4,11 @@ from aprs_function import SendAPRS, AprsCommand
 from dmr_function import GetCallSign
 from acl_function import IsInACL
 import subprocess
-import logging
 from datetime import datetime
 from mysql_function import add_to_db,MySQL_SetText
 import configparser
 from dapnet import SendDapnet
+from logfunctions import *
 
 # some handy generic functions
 def ConvertToBool(tempstring):
@@ -32,8 +32,6 @@ svx_usesquelch = ConvertToBool(config.get('svxlink','use_digsquelch').upper())
 svx_ptysquelch = config.get('svxlink','pty_digsquelch')
 aprs_chngsettings = ConvertToBool(config.get('aprs','change_settings').upper())
 dapnet_send = ConvertToBool(config.get('overall','use_dapnet').upper())
-
-logger = logging.getLogger(__name__)
 
 def StripEmptyItems(temparray):
 	return([x for x in temparray if x])
@@ -86,6 +84,7 @@ def ValidateSDS(rawsds):
 		return(False)
 
 def ScreenSDS(rawsds):
+	logger.debug('Start screening SDS')
 	sdsheader = StripEmptyItems(rawsds[0].split(','))
 	if sdsheader[0][0:7] == '+CTSDSR':
 		MessageType = sdsheader[0][-2:]
