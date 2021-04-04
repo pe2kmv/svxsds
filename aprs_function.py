@@ -1,6 +1,6 @@
 # load necessary libraries
 import aprslib
-import logging
+from logfunctions import *
 import time
 import configparser
 from datetime import datetime
@@ -8,8 +8,6 @@ from aprslib.util import latitude_to_ddm, longitude_to_ddm, comment_altitude
 from acl_function import GetAPRSSymbol,GetAPRSText
 from mysql_function import MySQL_SetText,MySQL_SetSymbol
 from aprssymbol import prim_table, alt_table
-
-logger = logging.getLogger(__name__)
 
 # set variables
 config = configparser.ConfigParser()
@@ -60,7 +58,7 @@ def SendAPRS(tempCall, tempLat, tempLong,tempPayLoad):
 		# get timestamp for APRS
 		timestamp = datetime.utcfromtimestamp(time.time()).strftime("%d%H%M") + 'z'
 		APRSString = tempCall + '>APRS,TCPIP*:@' + timestamp + latitude_to_ddm(tempLat) + tempSymbol[0] + longitude_to_ddm(tempLong) + tempSymbol[1] + tempPayLoad
-		logger.debug('aprs string = ' + APRSString)
+		aprs_logger.info(APRSString)
 		try:
 			AIS.connect()
 			AIS.sendall(APRSString)
