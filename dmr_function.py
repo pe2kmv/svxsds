@@ -1,9 +1,7 @@
 # load libraries
 import json
 import urllib3
-import logging
-
-logger = logging.getLogger(__name__)
+from logfunctions import *
 
 http = urllib3.PoolManager()
 
