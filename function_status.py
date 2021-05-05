@@ -58,7 +58,6 @@ def ValidatePosition(rawsds):
 		tmpIssi = GetIssi(rawsds[0])
 		tmpCall = GetCallSign(rawsds[0])
 		logger.debug('TempCall = ' + tmpCall) 
-		add_to_db(TimeStamp,tmpIssi,tmpCall,rawsds[1])
 		if tmpCall != 'No Call' and tmpLat != "0.0" and tmpLong != "0.0":
 			if tetraprs_usemysql == "TRUE":
 				logger.debug('Save to DB')
