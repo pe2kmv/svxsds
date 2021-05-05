@@ -22,21 +22,20 @@ def SQLEsc(s):
 	if s == None:
 		return "NULL"
 	else:
-		return "'"+string.replace(s, "'", "''")+"'"
+		return "'" + str(s) + "'"
 
 def add_to_db(TempTimeStamp,TempISSI, TempCallSign,TempSDS):
-	print('Start add_to_db...')
 	try:
 		templat = GetLatitude(TempSDS[2:])
 		templon = GetLongitude(TempSDS[2:])
-		templocerror = GetLocationError(TempSDS[2:])
+		templocerror = SQLEsc(GetLocationError(TempSDS[2:]))
 		temphvel = GetHVelocity(TempSDS[2:])
-		tempdir = "'" + str(GetDirection(TempSDS[2:])) + "'"
-		if tempdir == "'None'":
-			tempdir = None
+		temphvel = SQLEsc(GetHVelocity(TempSDS[2:]))
+		tempdir = SQLEsc(GetDirection(TempSDS[2:]))
 		db = MySQLdb.connect(host=tetraprs_host,user=tetraprs_user,passwd=tetraprs_pw,db=tetraprs_db)
 		cur = db.cursor()
-		cur.execute("INSERT INTO tetraprs_raw (TimeStamp,ISSI, CallSign,SDS_RAW,Latitude,Longitude,LocationError,HVelocity,Direction) VALUES ('" + TempTimeStamp +"','" + str(TempISSI) + "','" + TempCallSign   + "','" + str(TempSDS) + "','" + str(templat) + "','" + str(templon) + "','" + str(templocerror) + "','" + str(temphvel) + "'," + SQLEsc(tempdir) + ")")
+		print("INSERT INTO tetraprs_raw (TimeStamp,ISSI, CallSign,SDS_RAW,Latitude,Longitude,LocationError,HVelocity,Direction) VALUES ('" + TempTimeStamp +"','" + str(TempISSI) + "','" + TempCallSign   + "','" + str(TempSDS) + "','" + str(templat) + "','" + str(templon) + "'," + templocerror + "," + temphvel + "," + tempdir + ")")
+		cur.execute("INSERT INTO tetraprs_raw (TimeStamp,ISSI, CallSign,SDS_RAW,Latitude,Longitude,LocationError,HVelocity,Direction) VALUES ('" + TempTimeStamp +"','" + str(TempISSI) + "','" + TempCallSign   + "','" + str(TempSDS) + "','" + str(templat) + "','" + str(templon) + "'," + templocerror + "," + temphvel + "," + tempdir + ")")
 		db.commit()
 		cur.close()
 	except:
