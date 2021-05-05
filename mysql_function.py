@@ -24,9 +24,10 @@ def add_to_db(TempTimeStamp,TempISSI, TempCallSign,TempSDS):
 		templon = GetLongitude(TempSDS[2:])
 		templocerror = GetLocationError(TempSDS[2:])
 		temphvel = GetHVelocity(TempSDS[2:])
+		tempdir = GetDirection(TempSDS[2:])
 		db = MySQLdb.connect(host=tetraprs_host,user=tetraprs_user,passwd=tetraprs_pw,db=tetraprs_db)
 		cur = db.cursor()
-		cur.execute("INSERT INTO tetraprs_raw (TimeStamp,ISSI, CallSign,SDS_RAW,Latitude,Longitude,LocationError,HVelocity) VALUES ('" + TempTimeStamp +"','" + str(TempISSI) + "','" + TempCallSign   + "','" + str(TempSDS) + "','"+ str(templat) + "','" + str(templon) + "','" + str(templocerror) + "','" + str(temphvel) + "')")
+		cur.execute("INSERT INTO tetraprs_raw (TimeStamp,ISSI, CallSign,SDS_RAW,Latitude,Longitude,LocationError,HVelocity,Direction) VALUES ('" + TempTimeStamp +"','" + str(TempISSI) + "','" + TempCallSign   + "','" + str(TempSDS) + "','"+ str(templat) + "','" + str(templon) + "','" + str(templocerror) + "','" + str(temphvel) + "','" + str(tempdir) + "')")
 		db.commit()
 		cur.close()
 	except:
@@ -46,7 +47,7 @@ def InitDB():
 		mydb.close()
 		return()
 	if result == 0:
-		createstring = "CREATE TABLE IF NOT EXISTS " + tetraprs_table + " (TimeStamp datetime NOT NULL,SDS_RAW VARCHAR(254) NOT NULL, ISSI INT NOT NULL, CallSign VARCHAR(15),Longitude FLOAT, Latitude FLOAT, LocationError VARCHAR(50), HVelocity FLOAT,Direction INT)"
+		createstring = "CREATE TABLE IF NOT EXISTS " + tetraprs_table + " (TimeStamp datetime NOT NULL,SDS_RAW VARCHAR(254) NOT NULL, ISSI INT NOT NULL, CallSign VARCHAR(15),Longitude FLOAT, Latitude FLOAT, LocationError VARCHAR(50), HVelocity FLOAT,Direction FLOAT)"
 		dbcursor.execute(createstring)
 		logger.debug("Created MySQL table for LIP data")
 		dbcursor.close()
