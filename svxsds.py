@@ -30,7 +30,7 @@ ser.dsrdtr = False
 
 from initradio import InitRadio
 #temp switch off InitRadio to speed up restart during testing phase
-InitRadio()
+#InitRadio()
 
 
 def OpenSerialPort():
