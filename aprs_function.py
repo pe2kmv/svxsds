@@ -9,15 +9,19 @@ from acl_function import GetAPRSSymbol,GetAPRSText
 from mysql_function import MySQL_SetText,MySQL_SetSymbol
 from aprssymbol import prim_table, alt_table
 
+from sendmsg import SendSDS
+
 # set variables
 config = configparser.ConfigParser()
 config.read('/etc/svxsds.cfg')
 tetraprs_useaprs = config.get('overall','use_aprs')
 aprs_user = config.get('aprs','aprsuser')
 aprs_pw = config.get('aprs','aprspw')
+aprs_host = config.get('aprs','aprshost')
+aprs_port = config.get('aprs','aprsport')
 
 # connect to APRS_IS
-AIS = aprslib.IS(aprs_user,passwd=aprs_pw,port=14580)
+AIS = aprslib.IS(aprs_user,passwd=aprs_pw,host=aprs_host,port=aprs_port)
 
 # get timestamp for APRS
 timestamp = datetime.utcfromtimestamp(time.time()).strftime("%d%H%M") + 'z'
@@ -37,10 +41,12 @@ def AprsCommand(tempissi,rawsds):
 				if len(prim_table[tempsymb[1]]) > 0:
 					# yes it's valid -> start MySQL query
 					MySQL_SetSymbol(tempissi,tempsymb)
+					SendSDS(tempissi,'APRS Symbol changed!')
 			if tempsymb[0] == '\\':
 				if len(alt_table[tempsymb[1]]) > 0:
 					# also a valid symbol -> start MySQL query
 					MySQL_SetSymbol(tempissi,tempsymb)
+					SendSDS(tempissi,'APRS Symbol changed!')
 		else:
 			return()
 	except:
