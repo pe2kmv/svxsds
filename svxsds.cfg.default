@@ -16,6 +16,8 @@ db_acl = tetraprs_acl
 [aprs]
 aprsuser = #aprs.fi username#
 aprspw = #aprs.fi passcode#
+aprshost = rotate.aprs2.net
+aprsport = 14580
 change_settings = True
 
 [dapnet]
