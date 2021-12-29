@@ -8,7 +8,6 @@ from aprslib.util import latitude_to_ddm, longitude_to_ddm, comment_altitude
 from acl_function import GetAPRSSymbol,GetAPRSText
 from mysql_function import MySQL_SetText,MySQL_SetSymbol
 from aprssymbol import prim_table, alt_table
-
 from sendmsg import SendSDS
 
 # set variables
