@@ -15,26 +15,27 @@
 ## Installation
 1. Copy the files to a directory of your choice (i.e. /opt)
 1. Create logfiles
-...
+```
 sudo touch /var/log/svxsds.log
 sudo touch /var/log/sdsdapnet.log
 sudo touch /var/log/sdsaprs.log
-...
+```
 1. Set permissions for logfiles
-...
+```
 chown svxlink:svxlink /var/log/svxsds.log
 chown svxlink:svxlink /var/log/sdsdapnet.log 
 chown svxlink:svxlink /var/log/sdsaprs.log 
-...
+```
 1. Install dependencies
-...
+```
 apt-get -y install python3-serial python3-aprslib python3-mysqldb
-...
+```
 1. Grant permissions for user 'svxlink' to access onboard serial port
-...
+```
 sudo usermod -a -G dialout svxlink
-...
+```
 1. Edit /boot/firmware/cmdline.txt: remove 'console=serial0,11520'
+1. Now reboot
 1. Create a new MySQL database
 1. sudo copy the file svxsds.cfg.default to /etc/ and rename it to svxsds.cfg
 1. Open /etc/svxsds.cfg and adjust the settings:
